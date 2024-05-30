@@ -7,7 +7,7 @@
         data-toggle="sticky" class="sticky" style="top: 85px;">
         <div class="sticky-inner">
             <a class="btn btn-lg btn-block btn-success rounded-0 py-4 mb-3 bg-op-6 roboto-bold"
-                href="create-post.html">Ask
+                href="create-post.php">Ask
                 Question</a>
             <div class="bg-white mb-3">
                 <h4 class="px-3 py-4 op-5 m-0">

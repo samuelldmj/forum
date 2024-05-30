@@ -1,4 +1,5 @@
 <?php require 'include/header.php'; ?>
+<?php require 'config/dbconn.php'; ?>
 
 
 <!-- Main content -->
@@ -13,7 +14,7 @@
     <div class="row align-items-center">
       <div class="col-md-8 mb-3 mb-sm-0">
         <h5>
-          <a href="single.html" class="text-primary">Drupal 8 quick starter guide</a>
+          <a href="single.php?=<?php echo 1; ?>" class="text-primary">Drupal 8 quick starter guide</a>
         </h5>
         <p class="text-sm"><span class="op-6">Posted</span> <a class="text-black" href="#">20 minutes</a> <span
             class="op-6">ago by</span> <a class="text-black" href="#">KenyeW</a></p>

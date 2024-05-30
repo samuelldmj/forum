@@ -10,7 +10,7 @@ define('PASS', '');
 define('USER', 'root');
 
 //dbname
-define('DBNAME', '');
+define('DBNAME', 'forum');
 
 
 //CONNECTION

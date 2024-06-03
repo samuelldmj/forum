@@ -5,7 +5,10 @@
 
  //displaying the posts dynamically
 
- $allposts = $conn->query("SELECT * FROM post ");
+ $allposts = $conn->query("SELECT post.id as id, post.title as title, post.body as body, post.created_at as created_at,
+ post.category as
+ category, post.author as author, COUNT(replies.post_id) as num_replies FROM post LEFT JOIN replies ON post.id =
+ replies.post_id GROUP BY (replies.post_id) ");
  $allposts->execute();
  $posts = $allposts->fetchAll(PDO::FETCH_OBJ);
 
@@ -23,16 +26,17 @@
     <div class="row align-items-center">
       <div class="col-md-8 mb-3 mb-sm-0">
         <h5>
-          <a href="single.php?id=1" class="text-primary"><?php  echo $post->title; ?></a>
+          <a href="single.php?id=<?php echo $post->id ?>" class="text-primary"><?php  echo $post->title; ?></a>
         </h5>
-        <p class="text-sm"><span class="op-6">Posted</span> <?php echo  $post->body; ?> <a class="text-black"
+        <p class="text-sm"><span class="op-6">Posted</span> <?php // echo  $post->body; ?> <a class="text-black"
             href="#"><?php echo  $post->created_at; ?></a>
           <span class="op-6">ago by</span> <a class="text-black" href="#"><?php echo  $post->author; ?></a></p>
         <div class="text-sm op-5"> <a class="text-black mr-2" href="#"><?php  echo  $post->category; ?></a></div>
       </div>
       <div class="col-md-4 op-7">
         <div class="row text-center op-7">
-          <div class="col px-1"> <i class="ion-ios-chatboxes-outline icon-1x"></i> <span class="d-block text-sm">122
+          <div class="col px-1"> <i class="ion-ios-chatboxes-outline icon-1x"></i> <span class="d-block text-sm">
+              <?php echo $post->num_replies?>
               Replys</span> </div>
         </div>
       </div>

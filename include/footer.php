@@ -1,3 +1,20 @@
+<?php 
+
+//displaying post dynamically
+$Posts = $conn->query("SELECT * FROM post ORDER BY created_at DESC ");
+$Posts->execute();
+$allPost = $Posts->fetchAll(PDO::FETCH_OBJ);
+
+//number of category
+$cat = $conn->query("SELECT COUNT(id) AS num_cat FROM categories");
+$cat->execute();
+$cats = $cat->fetch(PDO::FETCH_OBJ);
+
+
+
+
+?>
+
 <!-- Sidebar content -->
 <div class="col-lg-3 mb-4 mb-lg-0 px-lg-0 mt-lg-0">
     <div
@@ -14,56 +31,39 @@
                     Latest Posts
                 </h4>
                 <hr class="m-0">
+                <?php foreach($allPost as $post):  ?>
                 <div class="pos-relative px-3 py-3">
                     <h6 class="text-primary text-sm">
-                        <a href="#" class="text-primary">Why Bootstrap 4 is so awesome? </a>
+                        <a href="#" class="text-primary"> <?php echo $post->title;  ?> </a>
                     </h6>
-                    <p class="mb-0 text-sm"><span class="op-6">Posted</span> <a class="text-black" href="#">39
-                            minutes</a> <span class="op-6">ago by</span> <a class="text-black"
-                            href="#">AppStrapMaster</a></p>
+                    <p class="mb-0 text-sm"><span class="op-6">Posted</span> <a class="text-black"
+                            href="#"><?php echo $post->created_at;  ?> </a> <span class="op-6">by
+                            <?php echo $post->author;  ?> </span> <a class="text-black"
+                            href="#"><?php echo $post->category;  ?> </a></p>
                 </div>
                 <hr class="m-0">
-                <div class="pos-relative px-3 py-3">
-                    <h6 class="text-primary text-sm">
-                        <a href="#" class="text-primary">Custom shortcut or command to launch command in terminal? </a>
-                    </h6>
-                    <p class="mb-0 text-sm"><span class="op-6">Posted</span> <a class="text-black" href="#">58
-                            minutes</a> <span class="op-6">ago by</span> <a class="text-black" href="#">DanielD</a></p>
-                </div>
-                <hr class="m-0">
-                <div class="pos-relative px-3 py-3">
-                    <h6 class="text-primary text-sm">
-                        <a href="#" class="text-primary">HELP! My Windows XP machine is down </a>
-                    </h6>
-                    <p class="mb-0 text-sm"><span class="op-6">Posted</span> <a class="text-black" href="#">48
-                            minutes</a> <span class="op-6">ago by</span> <a class="text-black" href="#">DanielD</a></p>
-                </div>
-                <hr class="m-0">
-                <div class="pos-relative px-3 py-3">
-                    <h6 class="text-primary text-sm">
-                        <a href="#" class="text-primary">HELP! My Windows XP machine is down </a>
-                    </h6>
-                    <p class="mb-0 text-sm"><span class="op-6">Posted</span> <a class="text-black" href="#">38
-                            minutes</a> <span class="op-6">ago by</span> <a class="text-black" href="#">DanielD</a></p>
-                </div>
-                <hr class="m-0">
-            </div>
-            <div class="bg-white text-sm">
-                <h4 class="px-3 py-4 op-5 m-0 roboto-bold">
-                    Stats
-                </h4>
-                <hr class="my-0">
-                <div class="row text-center d-flex flex-row op-7 mx-0">
-                    <div class="col-sm-6 flex-ew text-center py-3 border-bottom border-right"> <a
-                            class="d-block lead font-weight-bold" href="#">58</a> Categories </div>
-                    <div class="col-sm-6 col flex-ew text-center py-3 border-bottom mx-0"> <a
-                            class="d-block lead font-weight-bold" href="#">1.856</a> Posts </div>
-                </div>
-                <div class="row d-flex flex-row op-7">
-                    <div class="col-sm-6 flex-ew text-center py-3 border-right mx-0"> <a
-                            class="d-block lead font-weight-bold" href="#">300</a> Members </div>
-                    <div class="col-sm-6 flex-ew text-center py-3 mx-0"> <a class="d-block lead font-weight-bold"
-                            href="#">DanielD</a> Newest Member </div>
+                 <?php endforeach;  ?>
+
+                 <div class="bg-white text-sm">
+                     <h4 class="px-3 py-4 op-5 m-0 roboto-bold">
+                         Stats
+                     </h4>
+                     <hr class="my-0">
+                     <div class="row text-center d-flex flex-row op-7 mx-0">
+                         <div class="col-sm-6 flex-ew text-center py-3 border-bottom border-right"> <a
+                                 class="d-block lead font-weight-bold" href="#">
+                                 <?php echo $cats->num_cat; ?> </a> Categories </div>
+                                 <div class="col-sm-6 col flex-ew text-center py-3 border-bottom mx-0"> <a
+                                         class="d-block lead font-weight-bold" href="#">1.856</a> Posts </div>
+                                 </div>
+                                 <div class="row d-flex flex-row op-7">
+                                     <div class="col-sm-6 flex-ew text-center py-3 border-right mx-0"> <a
+                                             class="d-block lead font-weight-bold" href="#">300</a> Members </div>
+                                     <div class="col-sm-6 flex-ew text-center py-3 mx-0"> <a
+                                             class="d-block lead font-weight-bold" href="#">DanielD</a> Newest Member
+                                     </div>
+                                     </div>
+                                     </div>
                 </div>
             </div>
         </div>

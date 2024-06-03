@@ -28,6 +28,11 @@
     
   }
 
+  //changing categories dynamically from db
+  $categories = $conn->query("SELECT * FROM categories");
+  $categories->execute();
+  $allCat = $categories->fetchAll(PDO::FETCH_OBJ);
+
 
 
 
@@ -56,9 +61,9 @@
       <label class="form-label">Choose Category</label>
 
       <option selected>Choose Category</option>
-      <option value="Design">Design</option>
-      <option value="Marketing">Marketing</option>
-      <option value="Programming">Programming</option>
+      <?php foreach($allCat as $cats): ?>
+      <option value="<?php echo $cats->name ?>"> <?php echo $cats->name ?></option>
+      <?php endforeach; ?>
     </select>
 
       <div class="form-group mt-3 mb-3">

@@ -29,10 +29,21 @@
 
   //displaying the replies dynamically
 
-  $allReplies = $conn->query("SELECT * FROM replies where post_id = 1 ");
+  if(isset($_GET['id'])){
+
+  $id = $_GET['id'];
+
+  $allReplies = $conn->query("SELECT * FROM replies where post_id ='$id' ");
   $allReplies->execute();
   $replies = $allReplies->fetchAll(PDO::FETCH_OBJ);
 
+//displaying post dynamically
+$singlePost = $conn->query("SELECT * FROM post where id = '$id' ");
+$singlePost->execute();
+$thePost = $singlePost->fetch(PDO::FETCH_OBJ);
+
+
+}
 
 
 
@@ -47,22 +58,15 @@
     <div class="row align-items-center">
       <div class="col-md-12 mb-3 mb-sm-0">
         <h5>
-          <a href="#" class="text-primary">Drupal 8 quick starter guide</a>
+          <a href="#" class="text-primary"><?php echo $thePost->title; ?></a>
         </h5>
         <p>
-          Appropriately cultivate principle-centered infrastructures via world-class niches. Professionally morph
-          cooperative methods of empowerment for out-of-the-box resources. Monotonectally create cross-unit web services
-          via efficient vortals. Quickly architect bleeding-edge niche markets rather than goal-oriented vortals.
-          Completely grow reliable customer service rather than interdependent action items.
-
-          Quickly engineer installed base content via client-based action items. Seamlessly transition backend models
-          whereas business imperatives. Collaboratively optimize resource-leveling catalysts for change after
-          cross-media paradigms. Assertively network extensible e-commerce whereas timely intellectual capital.
-          Appropriately revolutionize premier infomediaries.
+          <?php echo $thePost->body; ?>
         </p>
-        <p class="text-sm"><span class="op-6">Posted</span> <a class="text-black" href="#">20 minutes</a> <span
-            class="op-6">ago by</span> <a class="text-black" href="#">KenyeW</a></p>
-        <div class="text-sm op-5"> <a class="text-black mr-2" href="#">Programming</a></div>
+        <p class="text-sm"><span class="op-6">Posted</span> <a class="text-black"
+            href="#"><?php echo $thePost->created_at; ?></a> <span class="op-6"> by</span> <a class="text-black"
+            href="#"><?php echo $thePost->author; ?></a></p>
+        <div class="text-sm op-5"> <a class="text-black mr-2" href="#"><?php echo $thePost->category; ?></a></div>
       </div>
 
     </div>
@@ -87,7 +91,7 @@
           </div>
 
           <div class="form-group">
-            <input type="hidden" name="post_id" value="<?php echo 1;?>" class="form-control">
+            <input type="hidden" name="post_id" value="<?php echo $id ;?>" class="form-control">
             </div>
           <button name="submit" type="submit" class="mt-4 btn btn-primary w-25">reply</button>
         </form>
